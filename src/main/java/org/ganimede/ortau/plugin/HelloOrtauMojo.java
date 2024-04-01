@@ -1,4 +1,4 @@
-package org.ganimede.ortau;
+package org.ganimede.ortau.plugin;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
