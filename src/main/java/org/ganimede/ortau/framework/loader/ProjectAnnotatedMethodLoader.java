@@ -22,20 +22,20 @@ public class ProjectAnnotatedMethodLoader implements AnnotatedElementLoader<Meth
     PackageTypesLoader typesLoader;
 
     @Override
-    public List<Method> load(Annotation annotation) {
+    public List<Method> load(Class<? extends Annotation> annotationClass) {
         List<Class<?>> projectClasses = new LinkedList<>();
         project.getCompileSourceRoots().forEach(root -> projectClasses.addAll(typesLoader.getPackageClasses(root)));
 
         return Stream.concat(
                 projectClasses.stream()
-                        .filter(clazz -> clazz.isAnnotationPresent(annotation.annotationType()))
+                        .filter(clazz -> clazz.isAnnotationPresent(annotationClass))
                         .map(Class::getMethods)
                         .flatMap(Arrays::stream),
 
                 projectClasses.stream()
                         .map(Class::getMethods)
                         .flatMap(Arrays::stream)
-                        .filter(method -> method.isAnnotationPresent(annotation.annotationType()))
+                        .filter(method -> method.isAnnotationPresent(annotationClass))
         ).collect(Collectors.toList());
     }
 }

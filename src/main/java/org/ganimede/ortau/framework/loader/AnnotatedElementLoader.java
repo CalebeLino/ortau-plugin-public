@@ -4,5 +4,5 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 
 public interface AnnotatedElementLoader<T> {
-    List<T> load(Annotation annotation);
+    List<T> load(Class<? extends Annotation> annotationClass);
 }
